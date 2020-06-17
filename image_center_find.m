@@ -26,15 +26,9 @@ test = imcomplement(test);
 test = imdilate(test,SE); 
 test = imerode(test,SE); 
 
-% figure; imshow(test)
-
 % (10:end-10,10:end-10)
 % Find/plot center of mass
 [x, y] = centerofmass(test);
-
-hold on
-plot(x, y, 'or');
-hold off
 
 % Find pixel displacement from center and convert to ticks
 % x_disp = (635/2 - x) * -factor;
@@ -47,3 +41,13 @@ y_disp = (image_height_pixels/2 - y) * factor;
 % coordinates
 x_center = x_start + x_disp;
 y_center = y_start + y_disp;
+
+% Debug plot (comment out later)
+figure; 
+imshow(test)
+hold on
+    plot(x, y, 'or');
+    plot(x_center, y_center, 'xg');   
+hold off
+legend('center of mass', 'center of field');
+
