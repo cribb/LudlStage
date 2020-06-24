@@ -24,8 +24,8 @@ try
 %     end
     
     % Speed to the top-left corner
-    success = stage_send_com_Ludl (stage.handle, 'SPEED X=200000 Y=200000'); %#ok<*NASGU>
-    success = stage_send_com_Ludl (stage.handle, 'ACCEL X=1 Y=1');
+    success = stage_send_com_Ludl(stage.handle, 'SPEED X=200000 Y=200000'); %#ok<*NASGU>
+    success = stage_send_com_Ludl(stage.handle, 'ACCEL X=1 Y=1');
 %     success = stage_send_com_Ludl(stage.handle, 'HOME X Y');
 %     
 %     % Wait til the stage gets to the top-left corner
@@ -35,11 +35,11 @@ try
     % double check stage arrive home
     while arriveHome == 0
         success = stage_send_com_Ludl(stage.handle, 'HERE X=0 Y=0');
-        success = stage_send_com_Ludl (stage.handle, 'MOVE X=-5000000 Y=-1000000');
+        success = stage_send_com_Ludl(stage.handle, 'MOVE X=-5000000 Y=-1000000');
         while stage_check_busy_Ludl(stage.handle)
             pause(.5)
         end
-        success = stage_send_com_Ludl (stage.handle, 'where x y');
+        success = stage_send_com_Ludl(stage.handle, 'where x y');
         temp = textscan(success, '%s %d %d');
         Pos = int64([temp{2}, temp{3}]);
         if (Pos(1) >-100 && Pos(2)>-100)
@@ -52,16 +52,16 @@ try
     success = stage_send_com_Ludl(stage.handle, 'HERE X=0 Y=0');
 
     % For better precision, slow it down, move it away, and go back home
-    success = stage_send_com_Ludl (stage.handle, 'SPEED X=100 Y=100');
-    success = stage_send_com_Ludl (stage.handle, 'ACCEL X=255 Y=255');
-    success = stage_send_com_Ludl (stage.handle, 'MOVE X=100 Y=100');
+    success = stage_send_com_Ludl(stage.handle, 'SPEED X=100 Y=100');
+    success = stage_send_com_Ludl(stage.handle, 'ACCEL X=255 Y=255');
+    success = stage_send_com_Ludl(stage.handle, 'MOVE X=100 Y=100');
     success = stage_send_com_Ludl(stage.handle, 'MOVE X=-25 Y=-25');
     while stage_check_busy_Ludl(stage.handle)
         pause(.5)
     end
 
     % Reset the top-left corner to be the origin
-    success = stage_send_com_Ludl (stage.handle, 'HERE X=0 Y=0');
+    success = stage_send_com_Ludl(stage.handle, 'HERE X=0 Y=0');
 
 %     % If communications to stage was not open to start, then close.
 %     if h_stage_close == 1
