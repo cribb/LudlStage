@@ -61,7 +61,7 @@ try
         desc = desc(1,:);
 %         h_errordlg = errordlg(desc,'Application error','modal');
 %         uiwait(h_errordlg);
-        disp('Application Error: COM port does not exit or is not connected to any device.');
+        stage_log('Application Error: COM port does not exit or is not connected to any device.');
                 
         % XXX TODO 
         stage.status = SerialPortSetUp();
@@ -79,9 +79,8 @@ try
         
         delete(stage.handle);
         stage.handle = '';
-        desc = 'The selected COM port is not connected to the stage.';
-        h_errordlg = errordlg(desc,'Application error','modal');
-        uiwait(h_errordlg);
+        stage_log('The selected COM port is not connected to the stage.');
+        stage_log('Running SerialPortSetUp...')
 
         stage.status = SerialPortSetUp();
         
@@ -93,7 +92,7 @@ try
     end
 
     stage.status = 1;
-    disp('yEeT');
+    stage_log('yEeT');
     
 catch ME
     
