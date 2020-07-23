@@ -6,7 +6,7 @@ if nargin < 2 || isempty(label)
     label = 'BioPrecision2-LE2_Ludl6000';
 end
 
-% IF the ComPort is empty, we look for the existence of the PortNames.mat
+% If the ComPort is empty, we look for the existence of the PortNames.mat
 % file that would contain an earlier configuation of the stage connection
 % information. If there is no PortNames.mat file, throw an error.
 if nargin < 1 || isempty(ComPort)
@@ -26,9 +26,6 @@ if isempty(regexpi(ComPort, 'COM\d*'))
      error('ComPort must be a string representation, e.g. ''COM2''');
 end
      
-
-stage = get_stage_settings(label);
-
 % instrfind returns the instrument object array, where
 % each entry includes the type, status, and name as follows
 % Index:    Type:     Status:   Name:
@@ -104,31 +101,32 @@ catch ME
     
 end
 
+% If we're connected, tack on the remaining settings for the stage object
+switch label
+    case 'SCAN8Praparate_Ludl5000'            
+        stage.speed=50000;
+        stage.accel=100;
+        stage.scale=0.1;
+    case 'SCAN8Praparate_Ludl6000'         
+        stage.speed=200000;
+        stage.accel=1;
+        stage.scale=0.025;
+    case 'BioPrecision2-LE2_Ludl5000'            
+        stage.speed=40000;
+        stage.accel=100; 
+        stage.scale=0.2;
+    case 'BioPrecision2-LE2_Ludl6000'           
+        stage.speed=150000;
+        stage.accel=1;   
+        stage.scale=0.05;
+   otherwise
+        stage.speed=50000;
+        stage.accel=100;      
+        stage.scale=0.1;
+end  
+
+
 return
 
 
 
-function stage = get_stage_settings(label)
-   switch label
-        case 'SCAN8Praparate_Ludl5000'            
-            stage.speed=50000;
-            stage.accel=100;
-            stage.scale=0.1;
-        case 'SCAN8Praparate_Ludl6000'         
-            stage.speed=200000;
-            stage.accel=1;
-            stage.scale=0.025;
-        case 'BioPrecision2-LE2_Ludl5000'            
-            stage.speed=40000;
-            stage.accel=100; 
-            stage.scale=0.2;
-        case 'BioPrecision2-LE2_Ludl6000'           
-            stage.speed=150000;
-            stage.accel=1;   
-            stage.scale=0.05;
-       otherwise
-            stage.speed=50000;
-            stage.accel=100;      
-            stage.scale=0.1;
-   end  
-return
