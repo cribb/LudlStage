@@ -1,43 +1,31 @@
+function stage = stage_set_origin_Ludl(stage)
 %  ##########################################################################
 %% ###################### MOVE STAGE SEQUENCE ###############################
 %  ##########################################################################
-function stage = stage_set_origin_Ludl(stage,h_stage)
+
 try
     
     % If communications to stage is not open to start, then open.
     % Also prepare to close
     arriveHome = 0;
-%     h_stage_close = 0;
-%     if exist('h_stage', 'var') == 0
-%         h_stage_close = 1;
-%         [stage] =  stage_open_Ludl(stage.label);
-%         % If communications with the stage cannot be established,
-%         % eeDAP is closing.
-%         if stage.status == 0
-%             desc = ['Communications with the stage is not established.',...
-%                 'eeDAP is closing.'] %#ok<NOPRT>
-%             h_errordlg = errordlg(desc,'Application error','modal');
-%             uiwait(h_errordlg)
-%             close all force;
-%             return
-%         end
-%     end
     
     % Speed to the top-left corner
-    success = stage_send_com_Ludl(stage.handle, 'SPEED X=200000 Y=200000'); %#ok<*NASGU>
+    success = stage_send_com_Ludl(stage.handle, 'SPEED X=100000 Y=100000'); %#ok<*NASGU>
     success = stage_send_com_Ludl(stage.handle, 'ACCEL X=1 Y=1');
-%     success = stage_send_com_Ludl(stage.handle, 'HOME X Y');
-%     
-%     % Wait til the stage gets to the top-left corner
-%     while stage_check_busy_Ludl(stage.handle)
-%         pause(.5)
-%     end
+    success = stage_send_com_Ludl(stage.handle, 'HOME X Y');
+    
+    % Wait til the stage gets to the top-left corner
+    while stage_check_busy_Ludl(stage.handle)
+        pause(.5)
+        disp('Not there yet 1.');
+    end
     % double check stage arrive home
     while arriveHome == 0
         success = stage_send_com_Ludl(stage.handle, 'HERE X=0 Y=0');
         success = stage_send_com_Ludl(stage.handle, 'MOVE X=-5000000 Y=-1000000');
         while stage_check_busy_Ludl(stage.handle)
             pause(.5)
+            disp('Not there yet 2.');
         end
         success = stage_send_com_Ludl(stage.handle, 'where x y');
         temp = textscan(success, '%s %d %d');
@@ -58,6 +46,7 @@ try
     success = stage_send_com_Ludl(stage.handle, 'MOVE X=-25 Y=-25');
     while stage_check_busy_Ludl(stage.handle)
         pause(.5)
+        disp('Not there yet 3.');
     end
 
     % Reset the top-left corner to be the origin
