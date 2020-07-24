@@ -15,34 +15,35 @@ function stage=stage_move_Ludl(stage, target_pos)
 %
 % objects can be cleared from memory with
 % delete(objects)
-try
+% try
 
     % Target position needs to be a 64 bit integer
     target_pos = int64(target_pos);
     
     % Get current poistion
-    stage=stage_get_pos_Ludl(stage,stage.handle);
+    stage = stage_get_pos_Ludl(stage);
     Initial_Pos = stage.Pos;
     % Start moving to the desired position  
-    command_str_speed = ['SPEED',...
-        ' x=', num2str(stage.speed),...
-        ' y=',num2str(stage.speed)];
+    command_str_speed = ['SPEED', ...
+                         ' x=', num2str(stage.speed), ...
+                         ' y=', num2str(stage.speed)];
     stage_send_com_Ludl (stage.handle, command_str_speed);
     command_str_accel = ['ACCEL',...
-        ' x=', num2str(stage.accel),...
-        ' y=',num2str(stage.accel)];
+                         ' x=', num2str(stage.accel),...
+                         ' y=', num2str(stage.accel)];
     stage_send_com_Ludl (stage.handle, command_str_accel);           
     stage_send_com_Ludl (stage.handle, 'SPEED X Y');   
     stage_send_com_Ludl (stage.handle, 'ACCEL X Y');
     command_str = ['move',...
-        ' x=', num2str(target_pos(1)),...
-        ' y=',num2str(target_pos(2))];
+                   ' x=', num2str(target_pos(1)),...
+                   ' y=', num2str(target_pos(2))];
     stage_send_com_Ludl(stage.handle, command_str);
     
     while stage_check_busy_Ludl(stage.handle)
-        stage=stage_get_pos_Ludl(stage,stage.handle) ;
-        current_pos=stage.Pos;
-        pause(.5)
+        stage = stage_get_pos_Ludl(stage);
+        current_pos = stage.Pos;
+        
+        pause(.5);
         
         distance_traveled = pdist2( double(Initial_Pos), double(current_pos), 'euclidean');
         distance_total    = pdist2( double(Initial_Pos), double(target_pos), 'euclidean');
@@ -62,8 +63,8 @@ try
 %         stage.status = stage_close(stage.handle);
 %     end
     
-catch ME
-    error_show(ME);
-end
+% catch ME
+%     error_show(ME);
+% end
 
 end
