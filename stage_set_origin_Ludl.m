@@ -1,4 +1,6 @@
 function stage = stage_set_origin_Ludl(stage)
+% STAGE_SET_ORIGIN_LUDL sets the stage origin to  current stage coordinates
+%
 %  ##########################################################################
 %% ###################### MOVE STAGE SEQUENCE ###############################
 %  ##########################################################################
