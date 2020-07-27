@@ -1,12 +1,7 @@
 function stage=stage_move_Ludl(stage, target_pos)
 % STAGE_MOVE_LUDL moves the stage to target Ludl coordinate
 
-%--------------------------------------------------------------------------
-% Move_Stage_Seq starts a []sequence that moves the stage from position A
-% to position B. THe function displays a waitbar and also adjusts
-% the acceleration and the speed of the stage. Target position is
-% specified as a horizontal vector of size 2.
-%--------------------------------------------------------------------------
+
 % instrfind returns the instrument object array
 % objects = instrfind
 % each entry includes the type, status, and name as follows
@@ -43,7 +38,7 @@ function stage=stage_move_Ludl(stage, target_pos)
         stage = stage_get_pos_Ludl(stage);
         current_pos = stage.Pos;
         
-        pause(.5);
+        pause(0.5);
         
         distance_traveled = pdist2( double(Initial_Pos), double(current_pos), 'euclidean');
         distance_total    = pdist2( double(Initial_Pos), double(target_pos), 'euclidean');
