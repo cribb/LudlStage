@@ -5,7 +5,7 @@ function outs = stage_center(stage)
 % The offset here refers to the number of ticks the stage will back off
 % from the edge triggered by the limit switch, and N is the number of times 
 % the stage backs off. 
-offset = 4000;
+offset = 20000; % equivalent to 1 [mm].
 N = 3;
 
 stage = stage_get_pos_Ludl(stage);
