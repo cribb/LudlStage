@@ -1,4 +1,4 @@
-function stage=stage_move_Ludl(stage, target_pos)
+function stage = stage_move_Ludl(stage, target_pos)
 % STAGE_MOVE_LUDL moves the stage to target Ludl coordinate
 
 
@@ -37,7 +37,7 @@ function stage=stage_move_Ludl(stage, target_pos)
     while stage_check_busy_Ludl(stage.handle)
         stage = stage_get_pos_Ludl(stage);
         current_pos = stage.Pos;
-        
+%         disp('Not there yet.');
         pause(0.5);
         
         distance_traveled = pdist2( double(Initial_Pos), double(current_pos), 'euclidean');
