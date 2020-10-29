@@ -38,11 +38,38 @@ end
 objects = instrfind('Port', ComPort);
 delete(objects);
 
+% If we're connected, tack on the remaining settings for the stage object
+switch label
+    case 'SCAN8Praparate_Ludl5000'            
+        stage.speed=50000;
+        stage.accel=100;
+        stage.scale=0.1;
+    case 'SCAN8Praparate_Ludl6000'         
+        stage.speed=200000;
+        stage.accel=1;
+        stage.scale=0.025;
+    case 'BioPrecision2-LE2_Ludl5000'            
+        stage.speed=40000;
+        stage.accel=100; 
+        stage.scale=0.2;
+        baudrate = 9600;
+    case 'BioPrecision2-LE2_Ludl6000'           
+        stage.speed=150000;
+        stage.accel=1;   
+        stage.scale=0.05;
+        baudrate = 115200;
+   otherwise
+        stage.speed=50000;
+        stage.accel=100;      
+        stage.scale=0.1;
+end 
+
+
 try
 
     stage.handle = serial(ComPort, 'RequestToSend','off', ...
                                    'Timeout', 3, ...
-                                   'Baudrate', 115200, ...
+                                   'Baudrate', baudrate, ...
                                    'Parity', 'none', ...
                                    'Stopbits', 2);
 
@@ -99,30 +126,6 @@ catch ME
     error_show(ME)
     
 end
-
-% If we're connected, tack on the remaining settings for the stage object
-switch label
-    case 'SCAN8Praparate_Ludl5000'            
-        stage.speed=50000;
-        stage.accel=100;
-        stage.scale=0.1;
-    case 'SCAN8Praparate_Ludl6000'         
-        stage.speed=200000;
-        stage.accel=1;
-        stage.scale=0.025;
-    case 'BioPrecision2-LE2_Ludl5000'            
-        stage.speed=40000;
-        stage.accel=100; 
-        stage.scale=0.2;
-    case 'BioPrecision2-LE2_Ludl6000'           
-        stage.speed=150000;
-        stage.accel=1;   
-        stage.scale=0.05;
-   otherwise
-        stage.speed=50000;
-        stage.accel=100;      
-        stage.scale=0.1;
-end  
 
 
 return
