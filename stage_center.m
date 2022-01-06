@@ -88,7 +88,8 @@ function outs = test_the_boundary(stage, myaxis, lohi, offset, N)
 
     % For better precision, slow it down, move it away, and go back home
     success = stage_send_com_Ludl(stage.handle, 'SPEED X=8000 Y=8000');
-    success = stage_send_com_Ludl(stage.handle, 'ACCEL X=32 Y=32');
+%    success = stage_send_com_Ludl(stage.handle, 'ACCEL X=32 Y=32');
+    success = stage_send_com_Ludl(stage.handle, 'ACCEL X=1 Y=1');
     
     for k = 1:N
         stage_log(['Collecting ' num2str(k) ' of ' num2str(N) '.']);
