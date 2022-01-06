@@ -5,7 +5,7 @@ function outs = stage_center(stage)
 % The offset here refers to the number of ticks the stage will back off
 % from the edge triggered by the limit switch, and N is the number of times 
 % the stage backs off. 
-offset = 20000; % equivalent to 1 [mm].
+offset = 10000; % equivalent to 1 [mm].
 N = 3;
 
 stage = stage_get_pos_Ludl(stage);
@@ -22,8 +22,8 @@ HiX = test_the_boundary(stage, 'x', 'hi', -offset, N);
 % The middle of stage in X is the mean of the average edge measurements
 CenterX = mean([LoX.mean(1) HiX.mean(1)]);
 
-stage_log(['StdDev in Xlo is ' num2str(tick2mm(LoX.std(1))*1000) ' [um].']);
-stage_log(['StdDev in Xhi is ' num2str(tick2mm(HiX.std(1))*1000) ' [um].']);
+stage_log(['StdDev in Xlo is ' num2str(tick2mm(stage, LoX.std(1))*1000) ' [um].']);
+stage_log(['StdDev in Xhi is ' num2str(tick2mm(stage, HiX.std(1))*1000) ' [um].']);
 stage_log(['Stage center in X is ' num2str(CenterX) ' [ticks].']);
 
 % Move to the stage center in X
@@ -36,8 +36,8 @@ HiY = test_the_boundary(stage, 'y', 'hi', -offset, N);
 % Calculate the middle of the stage in Y.
 CenterY = mean([LoY.mean(2) HiY.mean(2)]);
 
-stage_log(['StdDev in Ylo is ' num2str(tick2mm(LoY.std(1))*1000) ' [um].']);
-stage_log(['StdDev in Yhi is ' num2str(tick2mm(HiY.std(1))*1000) ' [um].']);
+stage_log(['StdDev in Ylo is ' num2str(tick2mm(stage, LoY.std(1))*1000) ' [um].']);
+stage_log(['StdDev in Yhi is ' num2str(tick2mm(stage, HiY.std(1))*1000) ' [um].']);
 stage_log(['Stage center in Y is ' num2str(CenterY) ' [ticks].']);
 
 % Move to Stage Center

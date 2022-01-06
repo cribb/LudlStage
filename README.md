@@ -62,8 +62,8 @@ opposed to a position relative to where the stage last was.
 
 `mm2tick` and `tick2mm` are unit conversion functions that convert from milimeters to ticks and vice versa respectively. They can be implemented as shown:
 
-`dist_tick = mm2tick(dist_mm)`
-`dist_mm = tick2mm(dist_tick)`
+`dist_tick = mm2tick(ludl, dist_mm)`
+`dist_mm = tick2mm(ludl, dist_tick)`
 
 ## Controlling the Stage with a Joystick
 
