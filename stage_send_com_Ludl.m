@@ -1,6 +1,8 @@
 function ST_answer = stage_send_com_Ludl (h, CommandStr)
 % STAGE_SEND_COM_LUDL sends command to Ludl stage
 %
+% ST_answer = stage_send_com_Ludl (h, CommandStr)
+%
 % This function sends commands to the stage. The opened serial port S
 % is passed as the first argument. The second argument is the string of
 % the command
