@@ -1,4 +1,4 @@
-function dist_tick = mm2tick(ludl, dist_mm)
+function dist_tick = mm2tick(ludl_scale_um, dist_mm)
 % MM2TICK converts millimeters to ludl tick marks
 %
 % One tick in Ludl space is equivalent to 50 nm. This corresponds to a
@@ -6,7 +6,7 @@ function dist_tick = mm2tick(ludl, dist_mm)
 % Inverting this gives a conversion factor of 20000 [ticks/mm].
 %
 
-dist_tick = dist_mm / ludl.scale * 1e3;
+dist_tick = dist_mm / ludl_scale_um * 1e3;
 
 
 
